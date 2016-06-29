@@ -37,6 +37,13 @@ public class MyHashSet
         return _size;
     }
 
+    private List<String> bucketOf(String element)
+    {
+        int hash = element.hashCode();
+        int index = Math.abs(hash) % numberOfBuckets();
+        return _buckets.get(index);
+    }
+
     public boolean contains(String element)
     {
         if (_logger != null)
@@ -44,11 +51,7 @@ public class MyHashSet
             _logger.log(this + " contains " + element);
         }
 
-        int hash = element.hashCode();
-        int index = Math.abs(hash) % numberOfBuckets();
-        List<String> list = _buckets.get(index);
-
-        return list.contains(element);
+        return bucketOf(element).contains(element);
     }
 
     public boolean add(String element)
@@ -58,9 +61,7 @@ public class MyHashSet
             _logger.log(this + " add " + element);
         }
 
-        int hash = element.hashCode();
-        int index = Math.abs(hash) % numberOfBuckets();
-        List<String> list = _buckets.get(index);
+        List<String> list = bucketOf(element);
 
         if (list.contains(element)) return false;
 
@@ -76,9 +77,7 @@ public class MyHashSet
             _logger.log(this + " remove " + element);
         }
 
-        int hash = element.hashCode();
-        int index = Math.abs(hash) % numberOfBuckets();
-        List<String> list = _buckets.get(index);
+        List<String> list = bucketOf(element);
 
         if (!list.contains(element)) return false;
 
