@@ -15,6 +15,14 @@ public class MyHashSetTest
     }
 
     @Test
+    public void addFunny()
+    {
+        set.add("hochenwiseler");
+        assertEquals(1, set.size());
+        assertTrue(set.contains("hochenwiseler"));
+    }
+
+    @Test
     public void addOneElement()
     {
         set.add("hello");

@@ -40,7 +40,7 @@ public class MyHashSet
     private List<String> bucketOf(String element)
     {
         int hash = element.hashCode();
-        int index = Math.abs(hash) % numberOfBuckets();
+        int index = Math.abs(hash % numberOfBuckets());
         return _buckets.get(index);
     }
 
