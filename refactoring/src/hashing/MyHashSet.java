@@ -19,7 +19,7 @@ public class MyHashSet
         {
             _buckets.add(new LinkedList<String>());
         }
-        _logger = null;
+        _logger = new NullLogger();
     }
 
     private int numberOfBuckets()
@@ -46,20 +46,14 @@ public class MyHashSet
 
     public boolean contains(String element)
     {
-        if (_logger != null)
-        {
-            _logger.log(this + " contains " + element);
-        }
+        _logger.log(this + " contains " + element);
 
         return bucketOf(element).contains(element);
     }
 
     public boolean add(String element)
     {
-        if (_logger != null)
-        {
-            _logger.log(this + " add " + element);
-        }
+        _logger.log(this + " add " + element);
 
         List<String> list = bucketOf(element);
 
@@ -72,10 +66,7 @@ public class MyHashSet
 
     public boolean remove(String element)
     {
-        if (_logger != null)
-        {
-            _logger.log(this + " remove " + element);
-        }
+        _logger.log(this + " remove " + element);
 
         List<String> list = bucketOf(element);
 
