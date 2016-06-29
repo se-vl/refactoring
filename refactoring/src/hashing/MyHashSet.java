@@ -10,14 +10,21 @@ public class MyHashSet
     private int _size;
     private Logger _logger;
 
+    public static final int INITIAL_NUMBER_OF_BUCKETS = 10;
+
     public MyHashSet()
     {
-        _buckets = new ArrayList<List<String>>(10);
-        for (int i = 0; i < 10; ++i)
+        _buckets = new ArrayList<List<String>>(INITIAL_NUMBER_OF_BUCKETS);
+        for (int i = 0; i < INITIAL_NUMBER_OF_BUCKETS; ++i)
         {
             _buckets.add(new LinkedList<String>());
         }
         _logger = null;
+    }
+
+    private int numberOfBuckets()
+    {
+        return _buckets.size();
     }
 
     public void setLogger(Logger logger)
@@ -38,7 +45,7 @@ public class MyHashSet
         }
 
         int hash = element.hashCode();
-        int index = Math.abs(hash) % 10;
+        int index = Math.abs(hash) % numberOfBuckets();
         List<String> list = _buckets.get(index);
 
         return list.contains(element);
@@ -52,7 +59,7 @@ public class MyHashSet
         }
 
         int hash = element.hashCode();
-        int index = Math.abs(hash) % 10;
+        int index = Math.abs(hash) % numberOfBuckets();
         List<String> list = _buckets.get(index);
 
         if (list.contains(element)) return false;
@@ -70,7 +77,7 @@ public class MyHashSet
         }
 
         int hash = element.hashCode();
-        int index = Math.abs(hash) % 10;
+        int index = Math.abs(hash) % numberOfBuckets();
         List<String> list = _buckets.get(index);
 
         if (!list.contains(element)) return false;
@@ -78,10 +85,5 @@ public class MyHashSet
         list.remove(element);
         --_size;
         return true;
-    }
-
-    public static boolean isDigit(int x)
-    {
-        return x >= 0 && x < 10;
     }
 }
